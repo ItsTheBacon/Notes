@@ -27,16 +27,24 @@ public class NoteFragment extends Fragment {
         clickTxtDoneListener();
         return binding.getRoot();
     }
+
     private void clickTxtDoneListener() {
+
         binding.txtDoneNoteFragment.setOnClickListener(v -> {
-            String title = binding.etNoteFragment.getText().toString();
-            model = new NoteModel(title);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("mod", model);
-            getParentFragmentManager().setFragmentResult("title", bundle);
-            close();
+            if (binding.etNoteFragment.getText().toString().trim().equalsIgnoreCase("")) {
+                binding.etNoteFragment.setError("Input Title");
+            } else {
+                String title = binding.etNoteFragment.getText().toString();
+                model = new NoteModel(title);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("mod", model);
+                getParentFragmentManager().setFragmentResult("title", bundle);
+                close();
+            }
         });
+
     }
+
     private void close() {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
         navController.navigateUp();
