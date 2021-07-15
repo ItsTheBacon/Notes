@@ -1,4 +1,4 @@
-package com.example.noteapp.form;
+package com.example.noteapp.ui.form;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,23 +24,22 @@ public class NoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentNoteBinding.inflate(inflater, container, false);
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
-        clickTxtDoneListener(navController);
+        clickTxtDoneListener();
         return binding.getRoot();
-
     }
-
-    private void clickTxtDoneListener(NavController navController) {
+    private void clickTxtDoneListener() {
         binding.txtDoneNoteFragment.setOnClickListener(v -> {
-
             String title = binding.etNoteFragment.getText().toString();
             model = new NoteModel(title);
             Bundle bundle = new Bundle();
             bundle.putSerializable("mod", model);
             getParentFragmentManager().setFragmentResult("title", bundle);
-            navController.navigateUp();
+            close();
         });
     }
+    private void close() {
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+        navController.navigateUp();
 
-
+    }
 }

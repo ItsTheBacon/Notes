@@ -5,4 +5,18 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="padding_home_12dp">12dp</dimen>
+    <dimen name="paddingleft_item_20dp">20dp</dimen>
+    <dimen name="padding_right_20dp">20dp</dimen>
+    <dimen name="textSize_14dp">14sp</dimen>
+    <dimen name="margin_top_8dp">8dp</dimen>
+    <dimen name="margin_left_40do">40dp</dimen>
+    <dimen name="padding_30dp">30dp</dimen>
+    <dimen name="paddingstart_30dp">30dp</dimen>
+    <dimen name="margubTop_30dp">30dp</dimen>
+    <dimen name="drawable_padding_10dp">10dp</dimen>
+    <dimen name="margin_top_16dp">16dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="paddingleft_8dp">8dp</dimen>
+    <dimen name="marginLeft_360dp">360dp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,12 +19,7 @@
             android:background="#131010"
             app:popupTheme="@style/Theme.NoteApp.PopupOverlay" />
 
-<!--        <EditText-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            -->
-<!--            -->
-<!--            />-->
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />

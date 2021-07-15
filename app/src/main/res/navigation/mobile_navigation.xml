@@ -16,6 +16,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_share"
+        android:name="com.example.noteapp.ui.share.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+    <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.noteapp.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
@@ -28,7 +33,8 @@
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/noteFragment"
-        android:name="com.example.noteapp.form.NoteFragment"
-        android:label="fragment_note"
+        android:name="com.example.noteapp.ui.form.NoteFragment"
+        android:label=""
         tools:layout="@layout/fragment_note" />
+
 </navigation>

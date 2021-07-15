@@ -9,5 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="oragne">#D88B02</color>
     <color name="greyd">#B1B1B1</color>
-    <color name="notBlack">#2B2A2A</color>
+    <color name="notBlack">#2B2A2A </color>
+    <color name="dark_grey">#505050</color>
+    <color name="black_ligth">#191818</color>
+    <color name="little_black">#191818</color>
 </resources>
