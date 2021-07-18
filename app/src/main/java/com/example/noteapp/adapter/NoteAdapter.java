@@ -1,18 +1,15 @@
 package com.example.noteapp.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.noteapp.Model.NoteModel;
 import com.example.noteapp.R;
-import com.example.noteapp.ui.home.HomeFragment;
+import com.example.noteapp.model.NoteModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,26 +19,23 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
     ArrayList<NoteModel> list = new ArrayList<>();
 
-    public NoteAdapter(boolean linear, HomeFragment fragment) {
-
+    public NoteAdapter() {
     }
-
 
     public void addText(NoteModel title) {
         list.add(title);
         notifyDataSetChanged();
 
     }
+
     @NonNull
     @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
 
-        if (!HomeFragment.linear) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home, parent, false);
-        }
         return new MyViewHolder(view);
+
     }
 
     @Override

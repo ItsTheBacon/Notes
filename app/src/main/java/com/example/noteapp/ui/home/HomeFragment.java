@@ -14,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.noteapp.Model.NoteModel;
+import com.example.noteapp.model.NoteModel;
 import com.example.noteapp.R;
 import com.example.noteapp.adapter.NoteAdapter;
 import com.example.noteapp.databinding.FragmentHomeBinding;
@@ -25,25 +26,22 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import static com.example.noteapp.R.menu.main;
+import static com.example.noteapp.ui.form.NoteFragment.BUNDLE_KEY;
+
 public class HomeFragment extends Fragment {
-
-
-    public static boolean linear = true;
     private FragmentHomeBinding binding;
-
-    private NoteAdapter adapter;
+    private NoteAdapter adapter = new NoteAdapter();
     private ArrayList<NoteModel> list = new ArrayList<>();
+    private  boolean linear = true;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         setupRecycler();
         getData();
         et_search_title();
-
-
         return binding.getRoot();
     }
 
@@ -52,7 +50,7 @@ public class HomeFragment extends Fragment {
 
         getParentFragmentManager().setFragmentResultListener("title", getViewLifecycleOwner(), (requestKey, result) -> {
 
-            NoteModel model = (NoteModel) result.getSerializable("mod");
+            NoteModel model = (NoteModel) result.getSerializable(BUNDLE_KEY);
             list.add(model);
             adapter.addText(model);
         });
@@ -77,15 +75,12 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
+
 
     private void filter(String text) {
         ArrayList<NoteModel> filteredList = new ArrayList<>();
@@ -94,7 +89,6 @@ public class HomeFragment extends Fragment {
                 filteredList.add(item);
             }
         }
-
         adapter.filterList(filteredList);
 
     }
@@ -103,7 +97,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-        adapter = new NoteAdapter(linear, HomeFragment.this);
     }
 
     private void setupRecycler() {
@@ -113,20 +106,20 @@ public class HomeFragment extends Fragment {
             binding.rvTaskHomeFragment.setLayoutManager(new LinearLayoutManager(getContext()));
         }
         binding.rvTaskHomeFragment.setAdapter(adapter);
-
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_dahsboard) {
             if (linear) {
-                item.setIcon(R.drawable.ic_baseline_dashboard_24);
-                binding.rvTaskHomeFragment.setLayoutManager(new LinearLayoutManager(getContext()));
-                return true;
-            } else {
-                item.setIcon(R.drawable.ic_list_bulleted_24);
                 binding.rvTaskHomeFragment.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-                return false;
+                item.setIcon(R.drawable.ic_baseline_dashboard_24);
+                linear = false;
+
+            } else {
+                binding.rvTaskHomeFragment.setLayoutManager( new LinearLayoutManager(getContext()));
+                item.setIcon(R.drawable.ic_list_bulleted_24);
+                linear = true;
             }
         }
         return super.onOptionsItemSelected(item);

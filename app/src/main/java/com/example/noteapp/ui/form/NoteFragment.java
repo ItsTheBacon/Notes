@@ -9,16 +9,16 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.noteapp.Model.NoteModel;
 import com.example.noteapp.R;
 import com.example.noteapp.databinding.FragmentNoteBinding;
+import com.example.noteapp.model.NoteModel;
 
 
 public class NoteFragment extends Fragment {
 
     private FragmentNoteBinding binding;
     private NoteModel model;
-
+    public static final String BUNDLE_KEY = "mod";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +37,7 @@ public class NoteFragment extends Fragment {
                 String title = binding.etNoteFragment.getText().toString();
                 model = new NoteModel(title);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("mod", model);
+                bundle.putSerializable(BUNDLE_KEY, model);
                 getParentFragmentManager().setFragmentResult("title", bundle);
                 close();
             }

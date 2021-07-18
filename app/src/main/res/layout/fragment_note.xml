@@ -48,12 +48,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_noteFragment"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="600dp"
         android:hint="@string/enter_title"
         android:singleLine="false"
+        android:gravity="start"
         android:maxLines="1"
         android:textColor="@color/white"
         android:textColorHint="@color/white"

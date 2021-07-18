@@ -1,4 +1,4 @@
-package com.example.noteapp.Model;
+package com.example.noteapp.model;
 
 
 
