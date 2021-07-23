@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
+    android:background="@color/black"
     tools:context=".ui.form.NoteFragment">
 
 
@@ -22,28 +22,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#131010"
+            app:popupTheme="@style/Theme.NoteApp.PopupOverlay">
 
-            app:popupTheme="@style/Theme.NoteApp.PopupOverlay" >
+            <ImageView
+                android:paddingStart="@dimen/padding_start_11dp"
+                android:paddingEnd="@dimen/padding_start_11dp"
+                android:id="@+id/back_to_homefragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_24"
+                android:contentDescription="@string/todo" />
 
-            <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/marginLeft_360dp"
-                android:padding="@dimen/paddingleft_8dp">
+            <TextView
+                android:id="@+id/date_from_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_TXT"
+                />
 
-                <TextView
-                    android:id="@+id/txt_done_noteFragment"
-                    android:layout_width="58dp"
-                    android:layout_height="26dp"
-                    android:textSize="15dp"
-                    android:layout_marginTop="@dimen/margin_10dp"
-                    android:gravity="top"
-                    android:text="@string/done"
-                    android:textColor="@color/oragne"
+            <TextView
+                android:id="@+id/txt_done_noteFragment"
+                android:layout_width="@dimen/width_58dp_txt"
+                android:layout_height="@dimen/height_26dp_txt"
+                android:layout_marginStart="@dimen/margin_left_240dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="top"
+                android:text="@string/done"
+                android:textColor="@color/oragne"
+                android:textSize="@dimen/textSize_15sp"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    app:layout_constraintTop_toTopOf="parent" />
-            </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -51,13 +59,13 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_noteFragment"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="@dimen/height_600dp_edittext"
         android:hint="@string/enter_title"
         android:singleLine="false"
         android:gravity="start"
         android:maxLines="1"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/dark_black"
         app:layout_constraintTop_toBottomOf="@id/barApp_layout" />
 
 

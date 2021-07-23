@@ -10,9 +10,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.noteapp.R;
-import com.example.noteapp.databinding.FragmentHomeBinding;
 import com.example.noteapp.databinding.FragmentOnboardFirstBinding;
-import com.example.noteapp.databinding.FragmentThreeBinding;
 import com.example.noteapp.utisl.PreferncesHelper;
 
 public class FirstFragment extends Fragment {
@@ -37,6 +35,6 @@ public class FirstFragment extends Fragment {
 
         private void close() {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
-            navController.navigate(R.id.action_onBoadFragment_to_nav_home);
+            navController.navigateUp();
         }
 }

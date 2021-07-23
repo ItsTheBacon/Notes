@@ -36,6 +36,6 @@ public class ThreeFragment extends Fragment {
 
     private void close() {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
-        navController.navigate(R.id.action_onBoadFragment_to_nav_home);
+        navController.navigateUp();
     }
 }

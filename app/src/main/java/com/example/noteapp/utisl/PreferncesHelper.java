@@ -15,11 +15,11 @@ public class PreferncesHelper {
     public void OnSaveOnboardState() {
         sharedPreferences.edit().putBoolean("IsShown", true).apply();
 
-
     }
 
     public boolean isShown() {
         return sharedPreferences.getBoolean("IsShown", false);
     }
+
 
 }

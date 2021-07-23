@@ -33,4 +33,10 @@
     <dimen name="dotsSize_16dp">16dp</dimen>
     <dimen name="dotsSpacing_4dp">4dp</dimen>
     <dimen name="dotsStroke_width_2dp">2dp</dimen>
+    <dimen name="margin_left_240dp">240dp</dimen>
+    <dimen name="width_58dp_txt">58dp</dimen>
+    <dimen name="height_26dp_txt">26dp</dimen>
+    <dimen name="textSize_15sp">15sp</dimen>
+    <dimen name="height_600dp_edittext">600dp</dimen>
+    <dimen name="padding_start_11dp">11dp</dimen>
 </resources>

@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.noteapp.databinding.FragmentOnBoadBinding;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 
 public class OnBoadFragment extends Fragment {
@@ -26,46 +27,43 @@ public class OnBoadFragment extends Fragment {
 
     private void init_viewpager_adapter() {
         if (binding.viewPager != null) {
-            ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+            ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity());
             binding.viewPager.setAdapter(adapter);
-            binding.wormDotsIndicator.setViewPager(binding.viewPager);
+            binding.wormDotsIndicator.setViewPager2(binding.viewPager);
         }
 
     }
 
-     class ViewPagerAdapter extends FragmentPagerAdapter {
-         private int COUNT = 3;
-         ViewPagerAdapter(FragmentManager fm) {
-             super(fm);
-         }
-         @Override
-         public Fragment getItem(int position) {
-             Fragment fragment = null;
-             switch (position) {
-                 case 0:
-                     fragment = new FirstFragment();
-                     break;
-                 case 1:
-                     fragment = new SecondFragment();
-                     break;
-                 case 2:
-                     fragment = new ThreeFragment();
-                     break;
-             }
+    class ViewPagerAdapter extends FragmentStateAdapter {
+        private int COUNT = 3;
 
-             return fragment;
-         }
+        public ViewPagerAdapter(@NonNull @NotNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
 
-         @Override
-         public int getCount() {
-             return COUNT;
-         }
+        @NotNull
+        @Override
+        public Fragment createFragment(int position) {
+            Fragment fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = new FirstFragment();
+                    break;
+                case 1:
+                    fragment = new SecondFragment();
+                    break;
+                case 2:
+                    fragment = new ThreeFragment();
+                    break;
+            }
 
-         @Nullable
-         @Override
-         public CharSequence getPageTitle(int position) {
-             return "Tab " + (position + 1);
-         }
-     }
+            return fragment;
+        }
+
+        @Override
+        public int getItemCount() {
+            return COUNT;
+        }
+    }
 
 }

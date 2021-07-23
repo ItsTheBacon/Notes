@@ -1,16 +1,15 @@
 package com.example.noteapp;
 
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -28,11 +27,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final int SELECT_PHOTO = 20;
+    private static final String SETIMAGEKEY = "dp";
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private Uri imageUri;
     private SharedPreferences sharedPreferences;
     private ImageView image;
 
@@ -81,38 +78,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            uri -> {
+                try {
+                    final InputStream imageStream = getContentResolver().openInputStream(uri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                    byte[] b = baos.toByteArray();
+                    String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                    sharedPreferences.edit().putString(SETIMAGEKEY, encodedImage).commit();
+                    Glide.with(this)
+                            .load(uri)
+                            .circleCrop()
+                            .placeholder(R.drawable.placeholder)
+                            .into(image);
+                    image.setImageURI(uri);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+
     private void saveToGallery() {
-        sharedPreferences = getSharedPreferences("profilePicture", MODE_PRIVATE);
-        if (!sharedPreferences.getString("dp", "").equals("")) {
-            byte[] decodedString = Base64.decode(sharedPreferences.getString("dp", ""), Base64.DEFAULT);
+        sharedPreferences = getSharedPreferences("", MODE_PRIVATE);
+        if (!sharedPreferences.getString(SETIMAGEKEY, "").equals("")) {
+            byte[] decodedString = Base64.decode(sharedPreferences.getString(SETIMAGEKEY, ""), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             image.setImageBitmap(decodedByte);
+
         }
-    }
-
-    private void click_image_gallerty() {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        View view = navigationView.getHeaderView(0);
-        image = view.findViewById(R.id.din_image_gallery);
-        image.setOnClickListener(v -> {
-            Intent gallery = new Intent("android.intent.action.GET_CONTENT");
-            gallery.addCategory("android.intent.category.OPENABLE");
-            gallery.setType("image/*");
-            MainActivity.this.startActivityForResult(gallery, 20);
-        });
-        image.setOnLongClickListener(v -> {
-            AlertDialog dialog = new AlertDialog.Builder(image.getContext()).create();
-            dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Нет", (dialog1, which) -> {
-
-            });
-            dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Да", (dialog12, which) -> Glide.with(MainActivity.this)
-                    .load(imageUri)
-                    .circleCrop()
-                    .placeholder(R.drawable.placeholder)
-                    .into(image));
-            dialog.show();
-            return false;
-        });
     }
 
     public void updateImage() {
@@ -124,33 +118,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void click_image_gallerty() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View view = navigationView.getHeaderView(0);
+        image = view.findViewById(R.id.din_image_gallery);
+        image.setOnClickListener(v -> {
+            mGetContent.launch("image/*");
+        });
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case SELECT_PHOTO:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        imageUri = data.getData();
-
-                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
-                        byte[] b = baos.toByteArray();
-                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                        sharedPreferences.edit().putString("dp", encodedImage).commit();
-                        Glide.with(this)
-                                .load(imageUri)
-                                .circleCrop()
-                                .into(image);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-        }
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {

@@ -9,24 +9,52 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.noteapp.R;
+import com.example.noteapp.interfaces.ItemClickList;
 import com.example.noteapp.model.NoteModel;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
 
-    ArrayList<NoteModel> list = new ArrayList<>();
+    public List<NoteModel> list = new ArrayList<>();
+    NoteModel noteModel;
+    private ItemClickList onitemClickList;
 
-    public NoteAdapter() {
+    public void setItemClickList(ItemClickList itemClickList) {
+        this.onitemClickList = itemClickList;
     }
+//    public NoteAdapter(boolean linear, ItemClickList itemClickList){
+//        this.list = new ArrayList<>();
+//        this.onitemClickList  = itemClickList;
+//
+//    }
 
-    public void addText(NoteModel title) {
-        list.add(title);
+
+    public void addText(NoteModel model, int index) {
+        list.add(0, model);
         notifyDataSetChanged();
 
     }
+
+    public void SetList(List<NoteModel> modelList, int index) {
+        list.clear();
+        this.list.addAll(0, modelList);
+        notifyDataSetChanged();
+    }
+
+    public void delete(int position) {
+        list.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void update(int pos, NoteModel model) {
+        list.set(pos, model);
+        notifyItemChanged(pos);
+    }
+
 
     @NonNull
     @NotNull
@@ -38,15 +66,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
-        holder.txttitle.setText(list.get(position).getTxtTitle());
+        // holder.txttitle.setText(list.get(position).getTxtTitle());
+        holder.bind(list.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if (list != null) {
+            return list.size();
+        } else return 0;
+
     }
 
     public void filterList(ArrayList<NoteModel> filteredList) {
@@ -61,6 +94,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
             super(itemView);
 
             txttitle = itemView.findViewById(R.id.item_title);
+
+        }
+
+        public void bind(NoteModel model) {
+            txttitle.setText(model.getTxtTitle());
+            itemView.setOnClickListener(v ->
+                    onitemClickList.CLickItem(getAdapterPosition(), model));
+
         }
     }
 

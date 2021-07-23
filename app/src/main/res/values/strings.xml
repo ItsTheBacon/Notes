@@ -24,4 +24,6 @@
     <string name="three_onboard_text">Куча функций и интересных фишек</string>
     <string name="start_onboarding">Начать Работу</string>
     <string name="propustit">Пропустить</string>
+    <string name="date_TXT">22 Июля 17:00</string>
+    <string name="todo">TODO</string>
 </resources>
