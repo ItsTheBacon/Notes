@@ -20,18 +20,11 @@ import java.util.List;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
 
     public List<NoteModel> list = new ArrayList<>();
-    NoteModel noteModel;
     private ItemClickList onitemClickList;
 
     public void setItemClickList(ItemClickList itemClickList) {
         this.onitemClickList = itemClickList;
     }
-//    public NoteAdapter(boolean linear, ItemClickList itemClickList){
-//        this.list = new ArrayList<>();
-//        this.onitemClickList  = itemClickList;
-//
-//    }
-
 
     public void addText(NoteModel model, int index) {
         list.add(0, model);
@@ -50,10 +43,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void update(int pos, NoteModel model) {
-        list.set(pos, model);
-        notifyItemChanged(pos);
-    }
 
 
     @NonNull
