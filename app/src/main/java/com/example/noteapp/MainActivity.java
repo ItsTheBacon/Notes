@@ -1,16 +1,22 @@
 package com.example.noteapp;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,6 +27,8 @@ import com.bumptech.glide.Glide;
 import com.example.noteapp.databinding.ActivityMainBinding;
 import com.example.noteapp.utisl.PreferncesHelper;
 import com.google.android.material.navigation.NavigationView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -50,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         onBoardingPrefence(navController);
         toolbarandfabvisiblyGone(navController);
+
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         clickFabListner(navController);
@@ -57,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         saveToGallery();
         updateImage();
     }
+
+
 
     private void onBoardingPrefence(NavController navController) {
         PreferncesHelper preferncesHelper = new PreferncesHelper();

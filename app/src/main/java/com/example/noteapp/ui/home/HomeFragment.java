@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -35,7 +36,7 @@ import java.util.List;
 import static com.example.noteapp.R.menu.main;
 
 public class HomeFragment extends Fragment {
-    private FragmentHomeBinding binding;
+    private FragmentHomeBinding  binding;
     private NoteAdapter adapter = new NoteAdapter();
     private List<NoteModel> list = new ArrayList<>();
     private boolean linear = true;
@@ -65,9 +66,12 @@ public class HomeFragment extends Fragment {
                 adapter.addText(model, 0);
             }
         });
-        App.getInstance().noteDao().getAll().observe(requireActivity(), noteModels -> {
-            adapter.SetList(noteModels, 0);
-            list = noteModels;
+        App.getInstance().noteDao().getAll().observe(requireActivity(), new Observer<List<NoteModel>>() {
+            @Override
+            public void onChanged(List<NoteModel> noteModels) {
+                adapter.setlist(noteModels, 0);
+                list = noteModels;
+            }
         });
     }
 

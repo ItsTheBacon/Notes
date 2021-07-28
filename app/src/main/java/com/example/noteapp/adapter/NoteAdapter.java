@@ -32,7 +32,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
     }
 
-    public void SetList(List<NoteModel> modelList, int index) {
+    public void setlist(List<NoteModel> modelList, int index) {
         list.clear();
         this.list.addAll(0, modelList);
         notifyDataSetChanged();
@@ -58,7 +58,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
-        // holder.txttitle.setText(list.get(position).getTxtTitle());
+
         holder.bind(list.get(position));
 
     }
@@ -71,23 +71,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
     }
 
-    public void filterList(ArrayList<NoteModel> filteredList) {
+public void filterList(ArrayList<NoteModel> filteredList) {
         list = filteredList;
         notifyDataSetChanged();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txttitle;
+        TextView txttitle, txt_time;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             txttitle = itemView.findViewById(R.id.item_title);
-
+            txt_time = itemView.findViewById(R.id.item_time);
         }
 
         public void bind(NoteModel model) {
             txttitle.setText(model.getTxtTitle());
+            txt_time.setText(model.getDate());
             itemView.setOnClickListener(v ->
                     onitemClickList.CLickItem(getAdapterPosition(), model));
 

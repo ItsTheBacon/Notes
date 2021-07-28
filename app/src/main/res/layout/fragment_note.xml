@@ -44,13 +44,15 @@
                 android:id="@+id/txt_done_noteFragment"
                 android:layout_width="@dimen/width_58dp_txt"
                 android:layout_height="@dimen/height_26dp_txt"
-                android:layout_marginStart="@dimen/margin_left_240dp"
+                android:layout_marginStart="@dimen/marginStart_txt_212dp"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="top"
                 android:text="@string/done"
                 android:textColor="@color/oragne"
                 android:textSize="@dimen/textSize_15sp"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -67,6 +69,95 @@
         android:textColor="@color/white"
         android:textColorHint="@color/dark_black"
         app:layout_constraintTop_toBottomOf="@id/barApp_layout" />
+
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbtn_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_30dp"
+
+
+            />
+
+        <RadioButton
+            android:id="@+id/rbtn_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="@dimen/marginLeft_140dp"
+            android:background="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            />
+
+        <RadioButton
+            android:id="@+id/rbtn_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="268dp"
+            android:layout_marginBottom="@dimen/marginBottom_34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_red_radio"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_white_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginLeft_button_115dp"
+        android:layout_marginBottom="@dimen/marginBottom_60dp"
+        android:background="@drawable/restangle_radiobutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="618dp" />
+
+    <Button
+        android:id="@+id/btn_greyblack_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="@dimen/marginBottom_60dp"
+        android:background="@drawable/restangle_radiobutton1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="618dp" />
+
+    <Button
+        android:id="@+id/btn_red_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_240dp"
+        android:layout_marginBottom="@dimen/marginBottom_60dp"
+        android:background="@drawable/restangle_radiobutton2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="618dp" />
+
+
+    <ImageView
+        android:id="@+id/audio_convertor_voicetext"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="360dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="60dp"
+        android:src="@drawable/ic_baseline_mic_off_24"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

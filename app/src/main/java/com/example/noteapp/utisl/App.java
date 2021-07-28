@@ -7,7 +7,7 @@ import androidx.room.Room;
 
 import com.example.noteapp.room.NoteDatabase;
 
-public class App extends Application {
+public class  App extends Application {
 
     public static NoteDatabase instance = null;
     public static Context context;

@@ -37,6 +37,13 @@
     <dimen name="width_58dp_txt">58dp</dimen>
     <dimen name="height_26dp_txt">26dp</dimen>
     <dimen name="textSize_15sp">15sp</dimen>
-    <dimen name="height_600dp_edittext">600dp</dimen>
+    <dimen name="height_600dp_edittext">480dp</dimen>
     <dimen name="padding_start_11dp">11dp</dimen>
+    <dimen name="marginLeft_140dp">140dp</dimen>
+    <dimen name="marginBottom_34dp">34dp</dimen>
+    <dimen name="margin_left_30dp">30dp</dimen>
+    <dimen name="margin_left_259dp">259dp</dimen>
+    <dimen name="marginLeft_button_115dp">115dp</dimen>
+    <dimen name="marginBottom_60dp">60dp</dimen>
+    <dimen name="marginStart_txt_212dp">212dp</dimen>
 </resources>
