@@ -40,6 +40,9 @@ public class HomeFragment extends Fragment {
     private NoteAdapter adapter = new NoteAdapter();
     private List<NoteModel> list = new ArrayList<>();
     private boolean linear = true;
+    public  static final String UPDATE_MODEL_KEY = "mod";
+    public  static final String GET_SFRM_KEY_FROM_NOTE = "notes";
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,25 +56,22 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupRecycler();
-        et_search_title();
+        et_search_title(); 
         getNotesFromDb();
         push();
     }
 
 
     private void getNotesFromDb() {
-        getParentFragmentManager().setFragmentResultListener("notes", getViewLifecycleOwner(), (requestKey, result) -> {
-            NoteModel model = (NoteModel) result.get("mod");
+        getParentFragmentManager().setFragmentResultListener(GET_SFRM_KEY_FROM_NOTE, getViewLifecycleOwner(), (requestKey, result) -> {
+            NoteModel model = (NoteModel) result.get(UPDATE_MODEL_KEY);
             if (model != null) {
                 adapter.addText(model, 0);
             }
         });
-        App.getInstance().noteDao().getAll().observe(requireActivity(), new Observer<List<NoteModel>>() {
-            @Override
-            public void onChanged(List<NoteModel> noteModels) {
-                adapter.setlist(noteModels, 0);
-                list = noteModels;
-            }
+        App.getInstance().noteDao().getAll().observe(requireActivity(), noteModels -> {
+            adapter.setlist(noteModels, 0);
+            list = noteModels;
         });
     }
 
@@ -167,10 +167,9 @@ public class HomeFragment extends Fragment {
         adapter.setItemClickList((position, model) -> {
             Bundle bundle = new Bundle();
             bundle.putInt("pos", position);
-            bundle.putSerializable("mod", model);
+            bundle.putSerializable(UPDATE_MODEL_KEY, model);
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
             navController.navigate(R.id.action_nav_home_to_noteFragment, bundle);
-            Log.e("TAG", "CLickItem: " + bundle);
 
         });
     }

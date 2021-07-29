@@ -21,21 +21,9 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSecpndBinding.inflate(inflater, container, false);
-        setClickListener();
+
         return binding.getRoot();
     }
 
-    private void setClickListener() {
-        binding.send.setOnClickListener(v -> {
-            PreferncesHelper sharedPref = new PreferncesHelper();
-            sharedPref.init(requireContext());
-            sharedPref.OnSaveOnboardState();
-            close();
-        });
-    }
 
-    private void close() {
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
-        navController.navigateUp();
-    }
 }

@@ -27,7 +27,7 @@
     <dimen name="image_width_onboard">287dp</dimen>
     <dimen name="height_onboard">267dp</dimen>
     <dimen name="margin_top_107dp">107dp</dimen>
-    <dimen name="margin_top_477">477dp</dimen>
+    <dimen name="margin_top_477">580dp</dimen>
     <dimen name="marginBottom">82dp</dimen>
     <dimen name="indicator_radius_8dp">8dp</dimen>
     <dimen name="dotsSize_16dp">16dp</dimen>
@@ -46,4 +46,8 @@
     <dimen name="marginLeft_button_115dp">115dp</dimen>
     <dimen name="marginBottom_60dp">60dp</dimen>
     <dimen name="marginStart_txt_212dp">212dp</dimen>
+    <dimen name="width_txt_60dp">60dp</dimen>
+    <dimen name="margin_left_190d">190dp</dimen>
+    <dimen name="marginLeft_360d">360dp</dimen>
+    <dimen name="marginbottom_60">60dp</dimen>
 </resources>

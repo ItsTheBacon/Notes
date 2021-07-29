@@ -147,13 +147,14 @@
         tools:layout_editor_absoluteY="618dp" />
 
 
-    <ImageView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/audio_convertor_voicetext"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="360dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginLeft_360d"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="@dimen/marginbottom_60"
+        android:backgroundTint="@color/black"
         android:src="@drawable/ic_baseline_mic_off_24"
         app:layout_constraintLeft_toLeftOf="parent" />
 

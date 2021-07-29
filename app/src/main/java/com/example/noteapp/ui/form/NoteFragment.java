@@ -8,7 +8,6 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,12 +36,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.example.noteapp.ui.home.HomeFragment.UPDATE_MODEL_KEY;
+
 
 public class NoteFragment extends Fragment {
 
     private FragmentNoteBinding binding;
     NoteModel model;
     private int count = 0;
+    public static final int REQUESTKEYFORPERMISSION = 1;
 
 
     @Override
@@ -68,25 +70,24 @@ public class NoteFragment extends Fragment {
         SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireActivity());
         final Intent speehcReconizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
-        binding.audioConvertorVoicetext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (count == 0) {
-                    binding.audioConvertorVoicetext.setImageResource(R.drawable.ic_baseline_keyboard_voice_24);
-                    speechRecognizer.startListening(speehcReconizerIntent);
-                    YoYo.with(Techniques.FadeInDown)
-                            .duration(2000)
-                            .repeat(2)
-                            .playOn(binding.audioConvertorVoicetext);
+        binding.audioConvertorVoicetext.setOnClickListener(v -> {
+            if (count == 0) {
+                binding.audioConvertorVoicetext.setImageResource(R.drawable.ic_baseline_keyboard_voice_24);
+                speechRecognizer.startListening(speehcReconizerIntent);
+                YoYo.with(Techniques.FadeInDown)
+                        .duration(140)
+                        .repeat(2)
+                        .playOn(binding.audioConvertorVoicetext);
 
-                    count = 1;
-                } else {
-                    binding.audioConvertorVoicetext.setImageResource(R.drawable.ic_baseline_mic_off_24);
-                    speechRecognizer.stopListening();
-
-                    count = 0;
-                }
-
+                count = 1;
+            } else {
+                binding.audioConvertorVoicetext.setImageResource(R.drawable.ic_baseline_mic_off_24);
+                speechRecognizer.stopListening();
+                YoYo.with(Techniques.Shake)
+                        .duration(100)
+                        .repeat(3)
+                        .playOn(binding.audioConvertorVoicetext);
+                count = 0;
             }
 
         });
@@ -98,8 +99,7 @@ public class NoteFragment extends Fragment {
 
             @Override
             public void onBeginningOfSpeech() {
-                binding.etNoteFragment.setHint("Listening...");
-
+                binding.etNoteFragment.setHint(R.string.ettitle_textListening);
             }
 
             @Override
@@ -114,11 +114,13 @@ public class NoteFragment extends Fragment {
 
             @Override
             public void onEndOfSpeech() {
-
+                speechRecognizer.stopListening();
             }
 
             @Override
             public void onError(int error) {
+                binding.audioConvertorVoicetext.setImageResource(R.drawable.ic_baseline_mic_off_24);
+                binding.etNoteFragment.setHint(R.string.enter_title);
 
             }
 
@@ -156,43 +158,43 @@ public class NoteFragment extends Fragment {
 
     private void userPermissions() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, REQUESTKEYFORPERMISSION);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
+        if (requestCode == REQUESTKEYFORPERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireActivity(), "Permissiom Granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(),
+                        R.string.permission_granted,
+                        Toast.LENGTH_SHORT).show();
 
             }
         } else {
-            Toast.makeText(requireActivity(), "Permissiom dein", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(),
+                    R.string.permission_dein,
+                    Toast.LENGTH_SHORT).show();
 
 
         }
     }
 
     private void clickTxtDoneListener() {
-
         binding.txtDoneNoteFragment.setOnClickListener(v -> {
             String title = binding.etNoteFragment.getText().toString();
             if (TextUtils.isEmpty(title)) {
-                binding.etNoteFragment.setError("Input Title");
+                binding.etNoteFragment.setError(getString(R.string.seterror_text));
                 YoYo.with(Techniques.Shake)
-                        .duration(1000)
-                        .repeat(3)
+                        .duration(600)
+                        .repeat(2)
                         .playOn(binding.etNoteFragment);
                 return;
             }
             if (model == null) {
                 model = new NoteModel(title);
                 App.getInstance().noteDao().insertNote(model);
-                Log.e("TAG", "clickTxtDoneListener: " + model.getTxtTitle());
-
-
             } else {
                 model.setTxtTitle(title);
                 App.getInstance().noteDao().update(model);
@@ -207,7 +209,7 @@ public class NoteFragment extends Fragment {
     private void editData() {
 
         if (getArguments() != null) {
-            model = (NoteModel) getArguments().getSerializable("mod");
+            model = (NoteModel) getArguments().getSerializable(UPDATE_MODEL_KEY);
             if (model != null) {
                 binding.etNoteFragment.setText(model.getTxtTitle());
             }

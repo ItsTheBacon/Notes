@@ -27,4 +27,8 @@
     <string name="date_TXT">22 Июля 17:00</string>
     <string name="todo">TODO</string>
     <string name="text_time_item_linear">24 Июля 10:15</string>
+    <string name="ettitle_textListening">Listening...</string>
+    <string name="permission_granted">Permissiom Granted</string>
+    <string name="permission_dein">Permissiom dein</string>
+    <string name="seterror_text">Input Title</string>
 </resources>
