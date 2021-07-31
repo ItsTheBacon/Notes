@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/notpurple"
+    android:padding="@dimen/padding_35dp"
+
+    tools:context=".auth.AuthFragment">
+
+
+        <EditText
+            android:id="@+id/email_et_auth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/white_grey"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white_grey"
+
+            android:hint="password"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/email_et_auth" />
+
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_width="match_parent"
+            android:id="@+id/button_sign"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_restangle"
+            android:backgroundTint="@color/puple_blue"
+            android:text="SIGN IN "
+            app:layout_constraintTop_toBottomOf="@id/password"
+
+            />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,5 +47,18 @@
         tools:layout="@layout/fragment_on_boad" >
 
     </fragment>
+    <fragment
+        android:id="@+id/signFragment"
+        android:name="com.example.noteapp.auth.SignFragment"
+        android:label="SignFragment" />
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.noteapp.auth.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_signFragment"
+            app:destination="@id/signFragment" />
+    </fragment>
 
 </navigation>

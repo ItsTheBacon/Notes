@@ -19,4 +19,8 @@
     <color name="dark_orange">#D88B02</color>
     <color name="onarge_onboard">#D88B02</color>
     <color name="white_grey_onboard">#C4C4C4</color>
+    <color name="puple_blue">#0ef5e3</color>
+    <color name="purple_black">#201a32</color>
+    <color name="white_grey">#605b72</color>
+    <color name="notpurple">#201a32</color>
 </resources>
