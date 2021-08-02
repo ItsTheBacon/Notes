@@ -33,4 +33,6 @@
     <string name="seterror_text">Input Title</string>
     <string name="login_auth">LOGIN</string>
     <string name="login">login</string>
+    <string name="_2mothn">2 августа</string>
+    <string name="time">11:48</string>
 </resources>

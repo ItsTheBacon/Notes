@@ -18,10 +18,23 @@ public class NoteModel implements Serializable {
     @ColumnInfo
     private String date;
 
-    public NoteModel(String txtTitle, String date) {
+
+    private String radiobac;
+
+    public NoteModel(String txtTitle, String date, String radiobac) {
         this.txtTitle = txtTitle;
         this.date = date;
+        this.radiobac = radiobac;
     }
+
+    public String getRadiobac() {
+        return radiobac;
+    }
+
+    public void setRadiobac(String radiobac) {
+        this.radiobac = radiobac;
+    }
+
 
     public NoteModel(String title) {
         this.txtTitle = title;

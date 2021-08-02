@@ -27,7 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
     private static final String SETIMAGEKEY = "dp";
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;

@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -43,7 +44,10 @@ public class NoteFragment extends Fragment {
 
     private FragmentNoteBinding binding;
     NoteModel model;
+    String time ;
     private int count = 0;
+    String keyradiobtn;
+    RadioGroup radioGroup;
     public static final int REQUESTKEYFORPERMISSION = 1;
 
 
@@ -51,21 +55,87 @@ public class NoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentNoteBinding.inflate(inflater, container, false);
-
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull @NotNull NavController controller, @NonNull @NotNull NavDestination destination, @Nullable @org.jetbrains.annotations.Nullable Bundle arguments) {
+                if (destination.getId() == R.id.noteFragment) {
+                    binding.toolbarForm.setVisibility(View.VISIBLE);
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat month_date = new SimpleDateFormat("d MMMM");
+                    SimpleDateFormat month_time = new SimpleDateFormat("HH:mm");
+                    String month_name = month_date.format(cal.getTime());
+                    String moth_time_add = month_time.format(new Date());
+                    binding.txtMonthNotefragment.setText(month_name);
+                    binding.dateFromNote.setText(moth_time_add);
+                } else {
+                    binding.toolbarForm.setVisibility(View.GONE);
+                }
+            }
+        });
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        radioGroup = view.findViewById(R.id.radios);
+        view.findViewById(R.id.btn_radio_grey).setOnClickListener(this::initRadio);
+        view.findViewById(R.id.btn_radio_white).setOnClickListener(this::initRadio);
+        view.findViewById(R.id.radio_btn_red).setOnClickListener(this::initRadio);
         userPermissions();
         editData();
         clickTxtDoneListener();
+        iniButtons();
+        initRadio(view);
         click_audio_convertor();
 
 
     }
 
+    private void iniButtons() {
+        binding.btnNotefragBlack.setOnClickListener(v -> {
+            binding.btnRadioGrey.performClick();
+            binding.radioBtnRed.setChecked(false);
+            binding.btnRadioWhite.setChecked(false);
+            keyradiobtn = "b";
+            YoYo.with(Techniques.Shake)
+                    .duration(100)
+                    .repeat(5)
+                    .playOn(binding.btnNotefragBlack);
+        });
+        binding.btnNoteWhite.setOnClickListener(v -> {
+            binding.btnRadioWhite.performClick();
+            binding.radioBtnRed.setChecked(false);
+            binding.btnRadioGrey.setChecked(false);
+            keyradiobtn = "w";
+            YoYo.with(Techniques.Shake)
+                    .duration(100)
+                    .repeat(5)
+                    .playOn(binding.btnNoteWhite);
+        });
+        binding.btnNoteRed.setOnClickListener(v -> {
+            binding.radioBtnRed.performClick();
+            binding.btnRadioWhite.setChecked(false);
+            binding.btnRadioGrey.setChecked(false);
+            keyradiobtn = "r";
+            YoYo.with(Techniques.Shake)
+                    .duration(100)
+                    .repeat(5)
+                    .playOn(binding.btnNoteRed);
+        });
+    }
+
+    private void initRadio(View view) {
+        switch (view.getId()) {
+            case R.id.btn_radio_grey:
+            case R.id.btn_radio_white:
+            case R.id.radio_btn_red:
+                radioGroup.clearCheck();
+                radioGroup.check(view.getId());
+                break;
+        }
+    }
     private void click_audio_convertor() {
         SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireActivity());
         final Intent speehcReconizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -142,19 +212,6 @@ public class NoteFragment extends Fragment {
         });
     }
 
-    private void radio_buttonchangeBackground() {
-        binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rbtn_grey:
-
-
-                }
-            }
-        });
-
-    }
 
     private void userPermissions() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -182,6 +239,7 @@ public class NoteFragment extends Fragment {
     }
 
     private void clickTxtDoneListener() {
+
         binding.txtDoneNoteFragment.setOnClickListener(v -> {
             String title = binding.etNoteFragment.getText().toString();
             if (TextUtils.isEmpty(title)) {
@@ -193,17 +251,21 @@ public class NoteFragment extends Fragment {
                 return;
             }
             if (model == null) {
-                model = new NoteModel(title);
+                SimpleDateFormat sdfTime = new SimpleDateFormat("d MMMM HH:mm");
+                time = sdfTime.format(new Date());
+                model = new NoteModel(title, time,keyradiobtn);
                 App.getInstance().noteDao().insertNote(model);
             } else {
                 model.setTxtTitle(title);
+                model.setDate(time);
+                model.setRadiobac(keyradiobtn);
                 App.getInstance().noteDao().update(model);
             }
             close();
         });
-        binding.backToHomefragment.setOnClickListener(v -> {
-            close();
-        });
+//        binding.backToHomefragment.setOnClickListener(v -> {
+//            close();
+//        });
     }
 
     private void editData() {
@@ -220,7 +282,7 @@ public class NoteFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MMMM:kk");
         Date currentTime = Calendar.getInstance().getTime();
         String times = dateFormat.format(currentTime);
-        binding.dateFromNotes.setText(times);
+        binding.dateFromNote.setText(times);
     }
 
     private void close() {

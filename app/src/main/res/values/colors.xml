@@ -23,4 +23,8 @@
     <color name="purple_black">#201a32</color>
     <color name="white_grey">#605b72</color>
     <color name="notpurple">#201a32</color>
+    <color name="black_0e0coc">#0E0C0C</color>
+    <color name="red_grey">#571818</color>
+    <color name="black_item">#191818</color>
+    <color name="white_gre">#EBE4C9</color>
 </resources>
