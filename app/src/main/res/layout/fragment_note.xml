@@ -92,30 +92,30 @@
 
             <Button
                 android:id="@+id/btn_notefrag_black"
-                android:layout_width="80dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="34dp"
-                android:layout_marginBottom="30dp"
+                android:layout_width="@dimen/with80dp"
+                android:layout_height="@dimen/weiht_45dp"
+                android:layout_marginStart="@dimen/marginst_34dp"
+                android:layout_marginBottom="@dimen/marginBottom_30dp"
                 android:background="@drawable/restangle_radiobutton1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <Button
                 android:id="@+id/btn_note_white"
-                android:layout_width="80dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_width="@dimen/with80dp"
+                android:layout_height="@dimen/weiht_45dp"
+                android:layout_marginStart="@dimen/marginst_34dp"
+                android:layout_marginBottom="@dimen/marginBottom_30dp"
                 android:background="@drawable/restangle_radiobutton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/btn_notefrag_black" />
 
             <Button
                 android:id="@+id/btn_note_red"
-                android:layout_width="80dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_width="@dimen/with80dp"
+                android:layout_height="@dimen/weiht_45dp"
+                android:layout_marginStart="@dimen/marginBottom_30dp"
+                android:layout_marginBottom="@dimen/marginBottom_30dp"
                 android:background="@drawable/restangle_radiobutton2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/btn_note_white" />
@@ -157,7 +157,7 @@
         android:id="@+id/audio_convertor_voicetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft_360d"
+        android:layout_marginStart="@dimen/marginLeft_360d"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/marginbottom_60"
         android:backgroundTint="@color/black"

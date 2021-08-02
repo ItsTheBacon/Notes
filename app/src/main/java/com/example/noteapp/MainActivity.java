@@ -49,9 +49,9 @@ public class  MainActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            navController.navigate(R.id.authFragment);
-        }
+//        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+//            navController.navigate(R.id.authFragment);
+//        }
         onBoardingPrefence(navController);
         toolbarandfabvisiblyGone(navController);
 

@@ -37,9 +37,9 @@ import static com.example.noteapp.R.menu.main;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding  binding;
-    private NoteAdapter adapter = new NoteAdapter();
+    public static boolean linear = true;
     private List<NoteModel> list = new ArrayList<>();
-    private boolean linear = true;
+    private NoteAdapter adapter  = new NoteAdapter(linear, HomeFragment.this);
     public  static final String UPDATE_MODEL_KEY = "mod";
     public  static final String GET_SFRM_KEY_FROM_NOTE = "notes";
 
@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        adapter = new NoteAdapter(linear, HomeFragment.this);
         setupRecycler();
         et_search_title(); 
         getNotesFromDb();

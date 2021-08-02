@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.noteapp.R;
 import com.example.noteapp.interfaces.ItemClickList;
 import com.example.noteapp.model.NoteModel;
+import com.example.noteapp.ui.home.HomeFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +23,7 @@ import java.util.List;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
 
     public List<NoteModel> list = new ArrayList<>();
+    private View view;
     private ItemClickList onitemClickList;
 
     public void setItemClickList(ItemClickList itemClickList) {
@@ -33,6 +35,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         notifyDataSetChanged();
 
     }
+
+    public NoteAdapter(boolean linear, HomeFragment fragment) {
+        this.list = new ArrayList<>();
+
+    }
+
 
     public void setlist(List<NoteModel> modelList, int index) {
         list.clear();
@@ -51,8 +59,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
     @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
-
+        if (!HomeFragment.linear) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard, parent, false);
+        } else if (HomeFragment.linear) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
+        }
         return new MyViewHolder(view);
 
     }

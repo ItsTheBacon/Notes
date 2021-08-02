@@ -1,6 +1,7 @@
 package com.example.noteapp.ui.form;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -43,11 +44,11 @@ import static com.example.noteapp.ui.home.HomeFragment.UPDATE_MODEL_KEY;
 public class NoteFragment extends Fragment {
 
     private FragmentNoteBinding binding;
-    NoteModel model;
-    String time ;
+    String time;
+    private NoteModel model;
     private int count = 0;
     String keyradiobtn;
-    RadioGroup radioGroup;
+    private RadioGroup radioGroup;
     public static final int REQUESTKEYFORPERMISSION = 1;
 
 
@@ -62,12 +63,12 @@ public class NoteFragment extends Fragment {
                 if (destination.getId() == R.id.noteFragment) {
                     binding.toolbarForm.setVisibility(View.VISIBLE);
                     Calendar cal = Calendar.getInstance();
-                    SimpleDateFormat month_date = new SimpleDateFormat("d MMMM");
-                    SimpleDateFormat month_time = new SimpleDateFormat("HH:mm");
-                    String month_name = month_date.format(cal.getTime());
-                    String moth_time_add = month_time.format(new Date());
-                    binding.txtMonthNotefragment.setText(month_name);
-                    binding.dateFromNote.setText(moth_time_add);
+                    SimpleDateFormat monthsimpledate = new SimpleDateFormat("d MMMM");
+                    SimpleDateFormat monthsimpletime = new SimpleDateFormat("HH:mm");
+                    String month = monthsimpledate.format(cal.getTime());
+                    String date = monthsimpletime.format(new Date());
+                    binding.txtMonthNotefragment.setText(month);
+                    binding.dateFromNote.setText(date);
                 } else {
                     binding.toolbarForm.setVisibility(View.GONE);
                 }
@@ -86,22 +87,22 @@ public class NoteFragment extends Fragment {
         userPermissions();
         editData();
         clickTxtDoneListener();
-        iniButtons();
+        radiobtn_getBackground();
         initRadio(view);
         click_audio_convertor();
 
 
     }
 
-    private void iniButtons() {
+    private void radiobtn_getBackground() {
         binding.btnNotefragBlack.setOnClickListener(v -> {
             binding.btnRadioGrey.performClick();
             binding.radioBtnRed.setChecked(false);
             binding.btnRadioWhite.setChecked(false);
             keyradiobtn = "b";
             YoYo.with(Techniques.Shake)
-                    .duration(100)
-                    .repeat(5)
+                    .duration(150)
+                    .repeat(3)
                     .playOn(binding.btnNotefragBlack);
         });
         binding.btnNoteWhite.setOnClickListener(v -> {
@@ -110,8 +111,8 @@ public class NoteFragment extends Fragment {
             binding.btnRadioGrey.setChecked(false);
             keyradiobtn = "w";
             YoYo.with(Techniques.Shake)
-                    .duration(100)
-                    .repeat(5)
+                    .duration(150)
+                    .repeat(3)
                     .playOn(binding.btnNoteWhite);
         });
         binding.btnNoteRed.setOnClickListener(v -> {
@@ -120,12 +121,13 @@ public class NoteFragment extends Fragment {
             binding.btnRadioGrey.setChecked(false);
             keyradiobtn = "r";
             YoYo.with(Techniques.Shake)
-                    .duration(100)
-                    .repeat(5)
+                    .duration(150)
+                    .repeat(3)
                     .playOn(binding.btnNoteRed);
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void initRadio(View view) {
         switch (view.getId()) {
             case R.id.btn_radio_grey:
@@ -144,16 +146,16 @@ public class NoteFragment extends Fragment {
             if (count == 0) {
                 binding.audioConvertorVoicetext.setImageResource(R.drawable.ic_baseline_keyboard_voice_24);
                 speechRecognizer.startListening(speehcReconizerIntent);
-                YoYo.with(Techniques.FadeInDown)
-                        .duration(140)
-                        .repeat(2)
+                YoYo.with(Techniques.Shake)
+                        .duration(100)
+                        .repeat(4)
                         .playOn(binding.audioConvertorVoicetext);
 
                 count = 1;
             } else {
                 binding.audioConvertorVoicetext.setImageResource(R.drawable.ic_baseline_mic_off_24);
                 speechRecognizer.stopListening();
-                YoYo.with(Techniques.Shake)
+                YoYo.with(Techniques.Hinge)
                         .duration(100)
                         .repeat(3)
                         .playOn(binding.audioConvertorVoicetext);
